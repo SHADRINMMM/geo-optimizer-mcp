@@ -1,0 +1,36 @@
+{
+  "name": "geo-optimizer-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for GEO Optimizer — check and fix AI search visibility of any website",
+  "type": "module",
+  "bin": {
+    "geo-optimizer-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "jest": "^29.0.0",
+    "@jest/globals": "^29.0.0",
+    "ts-jest": "^29.0.0"
+  },
+  "files": ["dist/"],
+  "keywords": ["mcp", "geo", "ai-search", "seo", "chatgpt", "perplexity", "schema-org"],
+  "homepage": "https://causabi.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SHADRINMMM/geo-optimizer-mcp"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
