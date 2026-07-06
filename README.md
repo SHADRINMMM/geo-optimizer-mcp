@@ -2,15 +2,30 @@
 
 MCP server for [Causabi GEO Optimizer](https://causabi.com).
 
-Lets Claude Code, Claude Desktop, Cursor, Windsurf, Lovable, and any MCP-compatible AI tool check and fix the AI search visibility of any website — directly from your editor or AI assistant.
+---
+
+**What this is.** An MCP (Model Context Protocol) server that lets Claude Code, Claude Desktop, Cursor, Windsurf, and any MCP-compatible client check a website's AI-crawler readiness and generate fixes (robots.txt, Schema.org, FAQ markup, llms.txt) — directly from your editor or AI assistant. Runs locally over stdio, no account needed.
+
+**Quickstart (Claude Code):**
+
+```bash
+claude mcp add geo-optimizer -- npx -y geo-optimizer-mcp
+```
+
+Then ask: `Check the GEO score for example.com`. Config-file setup for other clients is below.
+
+**Scope.** One-off local checks and fix generation are free here. Continuous work — scheduled re-checks, score history, monitoring of answers from 4 AI engines (ChatGPT, Claude, Gemini, Grok), reports — runs on [causabi.com](https://causabi.com).
+
+---
 
 ## Tools
 
-| Tool | Description |
+| Tool | When to use |
 |------|-------------|
-| `analyze_geo_score` | Get GEO score 0–100 + breakdown for any domain |
-| `get_geo_fixes` | Get ready-to-use robots.txt, Schema.org, FAQ, and llms.txt fixes |
-| `make_site_geo_ready` | Generate all GEO assets for a new site in one shot (for AI builders) |
+| `get_product_guide` | Start here — complete guide + step-by-step workflow for any scenario |
+| `analyze_geo_score` | Check GEO score 0–100 + breakdown for an existing domain |
+| `get_geo_fixes` | Get copy-paste robots.txt, Schema.org, FAQ, and llms.txt fixes |
+| `make_site_geo_ready` | Generate all GEO assets for a new site in one shot (no API key needed) |
 
 ## Setup
 
@@ -130,18 +145,20 @@ Returns ready-to-paste Organization Schema, FAQ Schema, llms.txt, and robots.txt
 
 - **robots.txt** — Are AI crawlers (GPTBot, ClaudeBot, PerplexityBot) allowed?
 - **Schema.org** — Organization, LocalBusiness, SoftwareApplication markup
-- **FAQ Schema** — FAQPage JSON-LD (+41% citation rate in Perplexity)
+- **FAQ Schema** — FAQPage JSON-LD (associated with +41% citation rate in research)
 - **Content depth** — Enough text for AI to cite
 - **Brand signals** — NAP (Name, Address, Phone)
 - **Freshness** — dateModified signals
 
 ## Full audit & monitoring
 
-For multi-page crawl and AI citation monitoring:
+For multi-page crawl, scheduled re-checks, and monitoring of how 4 AI engines (ChatGPT, Claude, Gemini, Grok) answer questions about your brand:
 
 → **[causabi.com](https://causabi.com)** — free public score + deep audit after signup
 
 ## Python CLI
+
+Same checks as a standalone CLI: [github.com/SHADRINMMM/causabi-geo](https://github.com/SHADRINMMM/causabi-geo)
 
 ```bash
 pip install causabi-geo
