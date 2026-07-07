@@ -4,7 +4,7 @@ MCP server for [Causabi GEO Optimizer](https://causabi.com).
 
 ---
 
-**What this is.** An MCP (Model Context Protocol) server that lets Claude Code, Claude Desktop, Cursor, Windsurf, and any MCP-compatible client check a website's AI-crawler readiness and generate fixes (robots.txt, Schema.org, FAQ markup, llms.txt) — directly from your editor or AI assistant. Runs locally over stdio, no account needed.
+**What this is.** An MCP (Model Context Protocol) server that lets Claude Code, OpenAI Codex CLI, Claude Desktop, Cursor, Windsurf, and any MCP-compatible client check a website's AI-crawler readiness and generate fixes (robots.txt, Schema.org, FAQ markup, llms.txt) — directly from your editor or AI assistant. Runs locally over stdio, no account needed.
 
 **Quickstart (Claude Code):**
 
@@ -12,7 +12,21 @@ MCP server for [Causabi GEO Optimizer](https://causabi.com).
 claude mcp add geo-optimizer -- npx -y geo-optimizer-mcp
 ```
 
-Then ask: `Check the GEO score for example.com`. Config-file setup for other clients is below.
+**Quickstart (OpenAI Codex CLI):**
+
+```bash
+codex mcp add geo-optimizer -- npx -y geo-optimizer-mcp
+```
+
+Or in `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.geo-optimizer]
+command = "npx"
+args = ["-y", "geo-optimizer-mcp"]
+```
+
+Then ask: `Check the GEO score for example.com`. Config-file setup for other clients (Cursor, Windsurf, Claude Desktop) is below.
 
 **Scope.** One-off local checks and fix generation are free here. Continuous work — scheduled re-checks, score history, monitoring of answers from 4 AI engines (ChatGPT, Claude, Gemini, Grok), reports — runs on [causabi.com](https://causabi.com).
 
