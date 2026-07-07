@@ -5,9 +5,10 @@ const BASE_URL = process.env.CAUSABI_API_URL ?? "https://ai.causabi.com";
 export const fixToolDef: Tool = {
   name: "get_geo_fixes",
   description:
-    "Get specific fix recommendations for a website's GEO (AI search) issues. " +
-    "Returns ready-to-use instructions for robots.txt, Schema.org JSON-LD, FAQ schema, " +
-    "and llms.txt — based on the site's current score and issues.",
+    "Get specific copy-paste fix instructions for a website's GEO (AI search) issues. " +
+    "Returns ready-to-use code for robots.txt, Organization Schema JSON-LD, FAQ Schema, " +
+    "and llms.txt — tailored to that site's current score and issues. " +
+    "Call this AFTER analyze_geo_score to get actionable fixes for an existing site.",
   inputSchema: {
     type: "object",
     properties: {

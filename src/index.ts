@@ -9,14 +9,16 @@ import {
 import { analyzeToolDef, analyzeHandler } from "./tools/analyze.js";
 import { fixToolDef, fixHandler } from "./tools/fix.js";
 import { generateToolDef, generateHandler } from "./tools/generate.js";
+import { guideToolDef, guideHandler } from "./tools/guide.js";
+import { configureToolDef, configureHandler } from "./tools/configure.js";
 
 const server = new Server(
-  { name: "geo-optimizer", version: "0.2.0" },
+  { name: "geo-optimizer", version: "0.4.0" },
   { capabilities: { tools: {} } }
 );
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: [analyzeToolDef, fixToolDef, generateToolDef],
+  tools: [guideToolDef, analyzeToolDef, fixToolDef, generateToolDef, configureToolDef],
 }));
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
@@ -24,12 +26,16 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const safeArgs = (args ?? {}) as Record<string, unknown>;
 
   switch (name) {
+    case "get_product_guide":
+      return guideHandler(safeArgs);
     case "analyze_geo_score":
       return analyzeHandler(safeArgs);
     case "get_geo_fixes":
       return fixHandler(safeArgs);
     case "make_site_geo_ready":
       return generateHandler(safeArgs);
+    case "suggest_monitoring_config":
+      return configureHandler(safeArgs);
     default:
       return {
         content: [{ type: "text", text: `Unknown tool: ${name}` }],

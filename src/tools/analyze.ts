@@ -5,9 +5,11 @@ const BASE_URL = process.env.CAUSABI_API_URL ?? "https://ai.causabi.com";
 export const analyzeToolDef: Tool = {
   name: "analyze_geo_score",
   description:
-    "Check the GEO (Generative Engine Optimization) score for any website. " +
-    "Returns an AI readiness score 0-100, grade A-F, and a list of specific issues " +
-    "that reduce visibility in ChatGPT, Perplexity, Gemini, and other AI search engines.",
+    "Check the GEO (Generative Engine Optimization) score for any existing website. " +
+    "Returns an AI readiness score 0-100, grade A-F, and a breakdown of specific issues " +
+    "that reduce visibility in ChatGPT, Perplexity, Gemini, Grok, and other AI search engines. " +
+    "Use this for existing sites. For new or rebuilding sites, use make_site_geo_ready instead. " +
+    "After getting the score, call get_geo_fixes to get specific copy-paste fix instructions.",
   inputSchema: {
     type: "object",
     properties: {
