@@ -40,6 +40,8 @@ Then ask: `Check the GEO score for example.com`. Config-file setup for other cli
 | `analyze_geo_score` | Check GEO score 0–100 + breakdown for an existing domain |
 | `get_geo_fixes` | Get copy-paste robots.txt, Schema.org, FAQ, and llms.txt fixes |
 | `make_site_geo_ready` | Generate all GEO assets for a new site in one shot (no API key needed) |
+| `suggest_monitoring_config` | Draft a monitoring config (target audiences, location, suggested queries) from a business description — returns JSON plus the API calls to apply it on causabi.com |
+| `get_site_report` | Client-ready report: pass `report_slug` for the full AI mention-rate breakdown (no API key needed), or just `domain` for a crawlability-score-only summary |
 
 ## Setup
 
@@ -132,7 +134,35 @@ What AI search issues does mybusiness.com have?
 Get fix instructions for mysite.com
 Why isn't example.com showing up in ChatGPT?
 Make this site GEO-ready: name="Acme", url="https://acme.com", description="We sell widgets"
+Draft a monitoring config for a dental clinic in Austin, TX called "Bright Smiles Dental"
+Give me a report on clientsite.com — here's the share link: causabi.com/report/abc123
 ```
+
+### `suggest_monitoring_config` example
+
+```
+suggest_monitoring_config({
+  business_name: "Bright Smiles Dental",
+  business_description: "A dental clinic in Austin, TX offering general and cosmetic dentistry for families.",
+  location: "Austin, TX"
+})
+```
+
+Returns target audience descriptions, a monitoring location, and suggested queries as ready-to-use JSON — plus the exact `PUT /api/v1/monitor/{site_id}/settings` and `PUT /api/v1/monitor/{site_id}/queries` calls to apply it (requires a causabi.com account/API token; this tool itself makes no API call).
+
+### `get_site_report` example
+
+```
+get_site_report({ report_slug: "abc123" })
+```
+
+Returns the full mention-rate breakdown (ChatGPT, Claude, Gemini, Grok), competitors named instead of the client, and per-query results — no API key needed, since Visibility Report share links are public.
+
+```
+get_site_report({ domain: "example.com" })
+```
+
+Without a `report_slug`, this only returns the public crawlability score (same data as `analyze_geo_score`) plus a note on how to get the full mention-rate report — there is currently no API-key-authenticated way to pull monitoring history from the MCP server; that requires either a share-slug or a causabi.com login.
 
 ## For AI website builders (Lovable, Bolt, Replit, v0)
 

@@ -1,4 +1,5 @@
 import type { Tool, CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import { USER_AGENT } from "../version.js";
 
 const BASE_URL = process.env.CAUSABI_API_URL ?? "https://ai.causabi.com";
 
@@ -33,7 +34,7 @@ export async function fixHandler(
   let data: ScoreResponse;
   try {
     const resp = await fetch(`${BASE_URL}/api/score/${domain}`, {
-      headers: { "User-Agent": "geo-optimizer-mcp/0.1.0" },
+      headers: { "User-Agent": USER_AGENT },
     });
     if (!resp.ok) {
       return errorResult(`API error ${resp.status}`);

@@ -1,6 +1,6 @@
 {
   "name": "geo-optimizer-mcp",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "MCP server for GEO Optimizer — check and fix AI search visibility of any website",
   "type": "module",
   "bin": {
