@@ -59,4 +59,25 @@ describe("configureHandler", () => {
       expect(text).toContain(q);
     }
   });
+  it("answers in English for an English description", () => {
+    const result = configureHandler({
+      business_name: "Acme Dental",
+      business_description: "Dental clinic in Austin",
+    });
+
+    const text = (result.content[0] as { text: string }).text;
+    expect(text).toContain("best acme dental");
+    expect(text).toContain("Patients looking for a doctor or clinic");
+    expect(text).not.toMatch(/[\u0400-\u04FF]/);
+  });
+
+  it("answers in Russian for a Russian description", () => {
+    const result = configureHandler({
+      business_name: "Клиника Здоровье",
+      business_description: "Стоматологическая клиника для всей семьи.",
+    });
+
+    const text = (result.content[0] as { text: string }).text;
+    expect(text).toContain("лучший клиника здоровье");
+  });
 });

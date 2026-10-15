@@ -117,63 +117,90 @@ function inferLocation(desc: string): string {
   return "";
 }
 
+function hasCyrillic(text: string): boolean {
+  return /[\u0400-\u04FF]/.test(text);
+}
+
 function inferAudiences(name: string, description: string, desc: string): string[] {
   const audiences: string[] = [];
+  const t = (ru: string, en: string) => (hasCyrillic(name + description) ? ru : en);
 
   // E-commerce / online store
   if (desc.match(/интернет.?магазин|онлайн.?магазин|e-?commerce|online store|shop/)) {
-    audiences.push("Покупатели которые ищут товары онлайн и сравнивают цены");
-    audiences.push("Люди которые впервые покупают данный тип товара и ищут советы");
+    audiences.push(t("Покупатели которые ищут товары онлайн и сравнивают цены",
+      "Shoppers who look for products online and compare prices"));
+    audiences.push(t("Люди которые впервые покупают данный тип товара и ищут советы",
+      "First-time buyers of this kind of product who look for advice"));
   }
   // Medical / health
   else if (desc.match(/клиник|больниц|врач|медицин|health|clinic|doctor|dental|стоматол/)) {
-    audiences.push("Пациенты которые ищут врача или клинику для конкретной проблемы");
-    audiences.push("Люди которые сравнивают клиники по отзывам и ценам");
+    audiences.push(t("Пациенты которые ищут врача или клинику для конкретной проблемы",
+      "Patients looking for a doctor or clinic for a specific problem"));
+    audiences.push(t("Люди которые сравнивают клиники по отзывам и ценам",
+      "People comparing clinics by reviews and prices"));
   }
   // Legal / consulting
   else if (desc.match(/юрид|адвокат|консалтинг|legal|lawyer|attorney|consulting/)) {
-    audiences.push("Люди у которых возникла конкретная юридическая проблема и они ищут помощь");
-    audiences.push("Бизнес владельцы которым нужна профессиональная консультация");
+    audiences.push(t("Люди у которых возникла конкретная юридическая проблема и они ищут помощь",
+      "People with a specific legal problem who are looking for help"));
+    audiences.push(t("Бизнес владельцы которым нужна профессиональная консультация",
+      "Business owners who need professional consulting"));
   }
   // Real estate
   else if (desc.match(/недвижим|агентство|аренд|квартир|real estate|realty|rental/)) {
-    audiences.push("Люди которые хотят купить или арендовать недвижимость в конкретном районе");
-    audiences.push("Инвесторы которые ищут выгодные объекты для вложений");
+    audiences.push(t("Люди которые хотят купить или арендовать недвижимость в конкретном районе",
+      "People who want to buy or rent property in a specific area"));
+    audiences.push(t("Инвесторы которые ищут выгодные объекты для вложений",
+      "Investors looking for profitable properties"));
   }
   // Restaurant / food
   else if (desc.match(/ресторан|кафе|еда|доставка|restaurant|cafe|food|delivery/)) {
-    audiences.push("Люди которые ищут где поесть рядом или заказать доставку");
-    audiences.push("Компании которые планируют корпоративные обеды или банкеты");
+    audiences.push(t("Люди которые ищут где поесть рядом или заказать доставку",
+      "People looking for a place to eat nearby or to order delivery"));
+    audiences.push(t("Компании которые планируют корпоративные обеды или банкеты",
+      "Companies planning corporate lunches or banquets"));
   }
   // SaaS / software
   else if (desc.match(/saas|software|platform|платформ|сервис|сaas|приложени|app/)) {
-    audiences.push("Руководители и продакты которые ищут инструмент для своей команды");
-    audiences.push("Технические специалисты которые сравнивают решения по функционалу");
+    audiences.push(t("Руководители и продакты которые ищут инструмент для своей команды",
+      "Managers and product owners looking for a tool for their team"));
+    audiences.push(t("Технические специалисты которые сравнивают решения по функционалу",
+      "Technical specialists comparing solutions by features"));
   }
   // Education
   else if (desc.match(/обучен|курс|школ|образован|education|course|training|learn/)) {
-    audiences.push("Люди которые хотят освоить новый навык и ищут подходящий курс");
-    audiences.push("Работодатели которые ищут программы для обучения сотрудников");
+    audiences.push(t("Люди которые хотят освоить новый навык и ищут подходящий курс",
+      "People who want to learn a new skill and look for a suitable course"));
+    audiences.push(t("Работодатели которые ищут программы для обучения сотрудников",
+      "Employers looking for training programs for their staff"));
   }
   // Beauty / wellness
   else if (desc.match(/салон|барбершоп|спа|красот|beauty|salon|spa|wellness/)) {
-    audiences.push("Люди которые ищут мастера или салон рядом с домом или работой");
-    audiences.push("Клиенты которые выбирают подарочный сертификат или процедуру");
+    audiences.push(t("Люди которые ищут мастера или салон рядом с домом или работой",
+      "People looking for a specialist or salon near home or work"));
+    audiences.push(t("Клиенты которые выбирают подарочный сертификат или процедуру",
+      "Clients choosing a gift certificate or a treatment"));
   }
   // Fitness / sport
   else if (desc.match(/фитнес|трен|спорт|gym|fitness|sport|workout/)) {
-    audiences.push("Люди которые хотят начать заниматься и выбирают зал или тренера");
-    audiences.push("Спортсмены которые ищут специализированный зал или программу");
+    audiences.push(t("Люди которые хотят начать заниматься и выбирают зал или тренера",
+      "People who want to start training and are choosing a gym or trainer"));
+    audiences.push(t("Спортсмены которые ищут специализированный зал или программу",
+      "Athletes looking for a specialized gym or program"));
   }
   // Finance / banking
   else if (desc.match(/банк|финанс|кредит|ипотек|инвест|bank|finance|credit|mortgage|invest/)) {
-    audiences.push("Люди которые ищут выгодный кредит, вклад или ипотеку");
-    audiences.push("Бизнес владельцы которым нужны финансовые продукты для компании");
+    audiences.push(t("Люди которые ищут выгодный кредит, вклад или ипотеку",
+      "People looking for a good loan, deposit or mortgage"));
+    audiences.push(t("Бизнес владельцы которым нужны финансовые продукты для компании",
+      "Business owners who need financial products for their company"));
   }
   // Generic fallback
   else {
-    audiences.push(`Люди которые ищут ${name.toLowerCase()} или похожий сервис`);
-    audiences.push("Клиенты которые сравнивают варианты и читают отзывы перед выбором");
+    audiences.push(t(`Люди которые ищут ${name.toLowerCase()} или похожий сервис`,
+      `People looking for ${name.toLowerCase()} or a similar service`));
+    audiences.push(t("Клиенты которые сравнивают варианты и читают отзывы перед выбором",
+      "Customers who compare options and read reviews before choosing"));
   }
 
   // Add a "how they ask AI" framing for each
@@ -192,13 +219,22 @@ function inferQueries(
   const queries = new Set(existing);
 
   // Generic queries that work for most businesses
-  const generic = [
-    `лучший ${name.toLowerCase()}${loc}`,
-    `${name.toLowerCase()} отзывы`,
-    `где найти ${name.toLowerCase()}${loc}`,
-    `${name.toLowerCase()} цены`,
-    `как выбрать ${name.toLowerCase()}`,
-  ];
+  const n = name.toLowerCase();
+  const generic = hasCyrillic(name + desc)
+    ? [
+        `лучший ${n}${loc}`,
+        `${n} отзывы`,
+        `где найти ${n}${loc}`,
+        `${n} цены`,
+        `как выбрать ${n}`,
+      ]
+    : [
+        `best ${n}${loc}`,
+        `${n} reviews`,
+        `where to find ${n}${loc}`,
+        `${n} pricing`,
+        `how to choose ${n}`,
+      ];
 
   for (const q of generic) {
     if (queries.size < 10) queries.add(q);
@@ -256,7 +292,7 @@ function formatConfig(name: string, config: MonitoringConfig): string {
     `All endpoints require authentication. Log in at https://causabi.com and use your API token.`,
     ``,
     `> **Tip:** Audiences can be free-form text — describe your customer in natural language, `,
-    `> like "Молодые мамы 25-35 лет из Москвы, ищут безопасные продукты для детей".`,
+    `> like "Parents of young children, 25-35, looking for safe baby products".`,
     `> No structured format required.`,
   ].join("\n");
 }

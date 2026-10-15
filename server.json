@@ -1,0 +1,23 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.causabi/geo-optimizer-mcp",
+  "title": "Causabi GEO Optimizer",
+  "description": "Audit a site for AI readiness (llms.txt, schema, AI-crawler access) and generate the fixes.",
+  "version": "0.5.0",
+  "websiteUrl": "https://causabi.com",
+  "repository": {
+    "url": "https://github.com/SHADRINMMM/geo-optimizer-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "geo-optimizer-mcp",
+      "version": "0.5.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

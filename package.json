@@ -23,7 +23,8 @@
     "ts-jest": "^29.0.0"
   },
   "files": ["dist/"],
-  "keywords": ["mcp", "geo", "ai-search", "seo", "chatgpt", "perplexity", "schema-org"],
+  "mcpName": "com.causabi/geo-optimizer-mcp",
+  "keywords": ["mcp", "llms-txt", "ai-visibility", "geo", "ai-search", "seo", "chatgpt", "claude-code", "schema-org"],
   "homepage": "https://causabi.com",
   "repository": {
     "type": "git",

@@ -2,6 +2,9 @@
 
 ## 0.5.0
 
+- `suggest_monitoring_config` now answers in English for English input (audiences and
+  suggested queries were always Russian); Russian input keeps Russian output.
+- Added `mcpName` and `server.json` for the official MCP Registry.
 - Added `suggest_monitoring_config` — given a business description, generates target
   audience descriptions, a monitoring location, and suggested queries, plus the API
   calls to apply the config on causabi.com. Purely generative, no auth or API call.
