@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Tool output cleaned: no emoji, no unsourced statistics (removed "+41% citation rate", "200M+ weekly users", "15M+ daily queries", "73% of sites"), engines named as Gemini, Grok, Claude, ChatGPT (Perplexity and Yandex AI removed from engine lists; PerplexityBot stays as a robots.txt crawler).
+
 ## 0.5.0
 
 - `suggest_monitoring_config` now answers in English for English input (audiences and

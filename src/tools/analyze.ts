@@ -8,7 +8,7 @@ export const analyzeToolDef: Tool = {
   description:
     "Check the GEO (Generative Engine Optimization) score for any existing website. " +
     "Returns an AI readiness score 0-100, grade A-F, and a breakdown of specific issues " +
-    "that reduce visibility in ChatGPT, Perplexity, Gemini, Grok, and other AI search engines. " +
+    "that reduce visibility in ChatGPT, Gemini, Grok, Claude, and other AI search engines. " +
     "Use this for existing sites. For new or rebuilding sites, use make_site_geo_ready instead. " +
     "After getting the score, call get_geo_fixes to get specific copy-paste fix instructions.",
   inputSchema: {
@@ -51,10 +51,10 @@ export async function analyzeHandler(
         {
           type: "text",
           text:
-            `🔄 Scan started for **${domain}**\n\n` +
+            `Scan started for **${domain}**\n\n` +
             `The site hasn't been scored yet — a scan has been triggered. ` +
             `Try again in 30–60 seconds.\n\n` +
-            `[View live score → causabi.com/score/${domain}](https://causabi.com/score/${domain})`,
+            `[View live score -> causabi.com/score/${domain}](https://causabi.com/score/${domain})`,
         },
       ],
     };
@@ -85,7 +85,7 @@ function formatScore(domain: string, d: ScoreResponse): string {
   const labels: Record<string, [string, number]> = {
     robots_txt:    ["robots.txt (AI crawlers allowed)", 20],
     schema_org:    ["Schema.org markup",                25],
-    faq_schema:    ["FAQ Schema (+41% citation rate)",  20],
+    faq_schema:    ["FAQ Schema",                      20],
     content_depth: ["Content depth",                   15],
     brand_signals: ["Brand signals (NAP)",              10],
     freshness:     ["Content freshness",                10],
@@ -93,24 +93,24 @@ function formatScore(domain: string, d: ScoreResponse): string {
 
   for (const [key, [label, max]] of Object.entries(labels)) {
     const val = (breakdown as Record<string, number>)[key] ?? 0;
-    const icon = val === max ? "✅" : val >= max * 0.5 ? "⚠️" : "❌";
-    lines.push(`| ${icon} ${label} | ${val} | ${max} |`);
+    const icon = val === max ? "OK" : val >= max * 0.5 ? "PARTIAL" : "MISSING";
+    lines.push(`| ${label} | ${val} (${icon}) | ${max} |`);
   }
 
   const issues: Issue[] = d.issues ?? [];
   if (issues.length > 0) {
     lines.push(``, `### Issues to fix`);
     for (const issue of issues) {
-      const sev = issue.severity === "critical" ? "❌" : issue.severity === "warning" ? "⚠️" : "ℹ️";
-      lines.push(`${sev} **${issue.message}**`);
-      lines.push(`   → ${issue.fix}`);
+      const sev = issue.severity.toUpperCase();
+      lines.push(`[${sev}] **${issue.message}**`);
+      lines.push(`   -> ${issue.fix}`);
       lines.push(``);
     }
   } else {
-    lines.push(``, `✅ No critical issues found!`);
+    lines.push(``, `No critical issues found!`);
   }
 
-  lines.push(``, `🔗 [Full report → causabi.com/score/${domain}](https://causabi.com/score/${domain})`);
+  lines.push(``, `[Full report -> causabi.com/score/${domain}](https://causabi.com/score/${domain})`);
   if (updated) lines.push(updated);
 
   return lines.join("\n");
@@ -118,7 +118,7 @@ function formatScore(domain: string, d: ScoreResponse): string {
 
 function scoreBar(score: number): string {
   const filled = Math.round(score / 10);
-  return "█".repeat(filled) + "░".repeat(10 - filled);
+  return "[" + "#".repeat(filled) + "-".repeat(10 - filled) + "]";
 }
 
 function normalizeDomain(raw: string): string {
@@ -134,7 +134,7 @@ function normalizeDomain(raw: string): string {
 }
 
 function errorResult(msg: string): CallToolResult {
-  return { content: [{ type: "text", text: `❌ ${msg}` }], isError: true };
+  return { content: [{ type: "text", text: `${msg}` }], isError: true };
 }
 
 interface ScoreResponse {

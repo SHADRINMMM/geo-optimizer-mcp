@@ -65,7 +65,7 @@ Or add globally to `~/.claude/settings.json` to use across all projects.
 Then in Claude Code:
 ```
 > Check the GEO score for my-client-site.com
-> Make this site ready for ChatGPT and Perplexity
+> Make this site ready for ChatGPT and Gemini
 ```
 
 ### Claude Desktop
@@ -189,7 +189,7 @@ Returns ready-to-paste Organization Schema, FAQ Schema, llms.txt, and robots.txt
 
 - **robots.txt** — Are AI crawlers (GPTBot, ClaudeBot, PerplexityBot) allowed?
 - **Schema.org** — Organization, LocalBusiness, SoftwareApplication markup
-- **FAQ Schema** — FAQPage JSON-LD (associated with +41% citation rate in research)
+- **FAQ Schema** — FAQPage JSON-LD
 - **Content depth** — Enough text for AI to cite
 - **Brand signals** — NAP (Name, Address, Phone)
 - **Freshness** — dateModified signals

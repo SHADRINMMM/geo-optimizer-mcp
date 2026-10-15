@@ -11,9 +11,9 @@ export const guideToolDef: Tool = {
   name: "get_product_guide",
   description:
     "Get the complete guide for making a website visible in AI search engines " +
-    "(ChatGPT, Perplexity, Gemini, Grok, Yandex). " +
+    "(ChatGPT, Gemini, Grok, Claude). " +
     "Call this FIRST when the user asks about AI search visibility, GEO optimization, " +
-    "why their site isn't cited by AI, or how to get mentioned in ChatGPT/Perplexity. " +
+    "why their site isn't cited by AI, or how to get mentioned in ChatGPT. " +
     "Returns a step-by-step workflow explaining which tools to call and in what order.",
   inputSchema: {
     type: "object",
@@ -43,17 +43,15 @@ function buildGuide(scenario: string): string {
     `# GEO Optimizer — AI Search Visibility Guide`,
     ``,
     `**GEO (Generative Engine Optimization)** is the practice of making websites ` +
-    `visible and citable in AI-powered search engines: ChatGPT, Perplexity, Gemini, ` +
-    `Grok, and Yandex AI. Unlike traditional SEO (ranked links), AI engines read and ` +
+    `visible and citable in AI-powered search engines: ChatGPT, Gemini, ` +
+    `Grok, and Claude. Unlike traditional SEO (ranked links), AI engines read and ` +
     `*cite* sources in conversational answers — you either get cited or you don't.`,
     ``,
     `## Why this matters`,
     ``,
-    `- ChatGPT has **200M+ weekly users** asking questions that could mention your business`,
-    `- Perplexity serves **15M+ daily queries** with direct source citations`,
-    `- AI citation ≠ Google ranking — a site with SEO score 90 can have GEO score 20`,
-    `- **73% of sites accidentally block AI crawlers** via robots.txt`,
-    `- FAQ Schema markup increases AI citation rate by **+41%** (Stanford GEO research)`,
+    `- AI citation is not the same as Google ranking: a site that ranks well in classic search can still be invisible to AI engines`,
+    `- Many sites block AI crawlers in robots.txt by accident, which removes them from AI answers entirely`,
+    `- FAQ Schema gives AI engines clean question-and-answer pairs to quote`,
     ``,
     `## The 4 signals AI engines look for`,
     ``,
@@ -61,7 +59,7 @@ function buildGuide(scenario: string): string {
     `|--------|--------|----------|`,
     `| \`robots.txt\` allows AI bots | +20 pts | 2 min |`,
     `| Organization Schema JSON-LD | +25 pts | 5 min |`,
-    `| FAQ Schema (3-7 Q&A pairs) | +20 pts (+41% citations) | 10 min |`,
+    `| FAQ Schema (3-7 Q&A pairs) | +20 pts | 10 min |`,
     `| \`llms.txt\` in site root | context for AI agents | 5 min |`,
     ``,
   ].join("\n");
@@ -79,10 +77,10 @@ function buildGuide(scenario: string): string {
       `1. Call \`make_site_geo_ready\` with: business name, URL, description, services, ` +
       `email, and optionally 3-7 FAQ pairs`,
       `2. Copy the output into your site:`,
-      `   - Organization Schema → every page \`<head>\``,
-      `   - FAQ Schema → homepage \`<head>\``,
-      `   - \`llms.txt\` → upload to \`https://yourdomain.com/llms.txt\``,
-      `   - robots.txt patch → append to your \`/robots.txt\``,
+      `   - Organization Schema -> every page \`<head>\``,
+      `   - FAQ Schema -> homepage \`<head>\``,
+      `   - \`llms.txt\` -> upload to \`https://yourdomain.com/llms.txt\``,
+      `   - robots.txt patch -> append to your \`/robots.txt\``,
       `3. After deploying, call \`analyze_geo_score\` to verify the score`,
       ``,
       `**Example call:**`,
@@ -148,16 +146,16 @@ function buildGuide(scenario: string): string {
     `## Full monitoring (causabi.com dashboard)`,
     ``,
     `The MCP tools handle the optimization side. For ongoing monitoring — tracking whether ` +
-    `ChatGPT, Perplexity, Gemini, Grok actually mention your site in real AI responses — ` +
+    `Gemini, Grok, Claude and ChatGPT actually mention your site in real AI responses — ` +
     `use the **Causabi dashboard**:`,
     ``,
     `1. Sign up at **https://causabi.com** (free scan, paid monitoring)`,
-    `2. Add your site → automatic deep audit (full crawl, 500+ pages)`,
-    `3. Monitoring checks your site in all 5 AI engines daily/weekly (by plan)`,
+    `2. Add your site -> automatic deep audit (full crawl)`,
+    `3. Monitoring checks your site in Gemini, Grok, Claude and ChatGPT on a schedule set by your plan (ChatGPT is connected within 24 hours after payment)`,
     `4. You get emailed when your mention rate changes`,
     ``,
-    `The MCP tools use the **public scoring API** (preliminary scan, up to 8 pages). ` +
-    `The dashboard runs a **full audit** (500+ pages, deeper analysis, monitoring over time).`,
+    `The MCP tools use the **public scoring API** (a preliminary scan of a few pages). ` +
+    `The dashboard runs a **full audit** (deeper analysis, monitoring over time).`,
     ``,
   ].join("\n");
 
@@ -173,10 +171,10 @@ function buildGuide(scenario: string): string {
     `| \`get_site_report\` | Client-ready report: score + (if you have a report_slug) AI mention-rate history | No |`,
     ``,
     `**Quick decision:**`,
-    `- User has an existing site → \`analyze_geo_score\` → \`get_geo_fixes\``,
-    `- User is building a new site → \`make_site_geo_ready\``,
-    `- User wants a report to hand to a client → \`get_site_report\` (pass \`report_slug\` if you have a causabi.com/report/<slug> link for full mention-rate data)`,
-    `- User wants ongoing monitoring → direct to https://causabi.com`,
+    `- User has an existing site -> \`analyze_geo_score\` -> \`get_geo_fixes\``,
+    `- User is building a new site -> \`make_site_geo_ready\``,
+    `- User wants a report to hand to a client -> \`get_site_report\` (pass \`report_slug\` if you have a causabi.com/report/<slug> link for full mention-rate data)`,
+    `- User wants ongoing monitoring -> direct to https://causabi.com`,
     ``,
     `---`,
     `*Powered by [Causabi GEO Optimizer](https://causabi.com) — AI search visibility platform*`,

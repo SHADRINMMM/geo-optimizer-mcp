@@ -63,7 +63,7 @@ export function configureHandler(args: Record<string, unknown>): CallToolResult 
 
   if (!business_name || !business_description) {
     return {
-      content: [{ type: "text", text: "❌ business_name and business_description are required" }],
+      content: [{ type: "text", text: "business_name and business_description are required" }],
       isError: true,
     };
   }

@@ -13,7 +13,7 @@ export const generateToolDef: Tool = {
   description:
     "Generate all GEO (AI search optimization) assets for a website in one shot. " +
     "Returns ready-to-use Organization Schema JSON-LD, FAQ Schema JSON-LD, llms.txt, " +
-    "and robots.txt snippet — so AI search engines like ChatGPT, Perplexity, and Gemini " +
+    "and robots.txt snippet — so AI search engines like ChatGPT, Gemini, Grok, and Claude " +
     "can find, understand, and cite the site. " +
     "Use this when building or updating a website and the user wants AI search visibility. " +
     "No API key required.",
@@ -55,7 +55,7 @@ export const generateToolDef: Tool = {
           },
           required: ["question", "answer"],
         },
-        description: "FAQ pairs (optional — 3-7 Q&A recommended for +41% citation rate)",
+        description: "FAQ pairs (optional — 3-7 Q&A recommended)",
       },
     },
     required: ["name", "url", "description"],
@@ -80,7 +80,7 @@ export function generateHandler(args: Record<string, unknown>): CallToolResult {
 
   if (!name || !url || !description) {
     return {
-      content: [{ type: "text", text: "❌ name, url, and description are required" }],
+      content: [{ type: "text", text: "name, url, and description are required" }],
       isError: true,
     };
   }
@@ -95,7 +95,7 @@ export function generateHandler(args: Record<string, unknown>): CallToolResult {
   const lines: string[] = [
     `# GEO Assets for ${name}`,
     ``,
-    `All assets are ready to copy-paste. Adding these makes your site visible to ChatGPT, Perplexity, Gemini, and other AI search engines.`,
+    `All assets are ready to copy-paste. Adding these makes your site visible to ChatGPT, Gemini, Grok, Claude, and other AI search engines.`,
     ``,
     `---`,
     ``,
@@ -115,7 +115,7 @@ export function generateHandler(args: Record<string, unknown>): CallToolResult {
     lines.push(
       `## 2. FAQ Schema — add to homepage \`<head>\``,
       ``,
-      `**What it does:** FAQ markup increases citation rate in Perplexity and ChatGPT by up to 41%.`,
+      `**What it does:** FAQ markup gives AI engines clean question-and-answer pairs to quote.`,
       ``,
       `\`\`\`html`,
       `<script type="application/ld+json">`,
@@ -126,7 +126,7 @@ export function generateHandler(args: Record<string, unknown>): CallToolResult {
     );
   } else {
     lines.push(
-      `## 2. FAQ Schema — add 3+ Q&A pairs for +41% citation rate`,
+      `## 2. FAQ Schema — add 3+ Q&A pairs`,
       ``,
       `Call \`make_site_geo_ready\` again with a \`faq\` array (3-7 items) to generate FAQ Schema.`,
       `Example:`,
@@ -152,7 +152,7 @@ export function generateHandler(args: Record<string, unknown>): CallToolResult {
     ``,
     `## 4. robots.txt — add to your \`/robots.txt\``,
     ``,
-    `**What it does:** allows AI crawlers to read your site. 73% of sites accidentally block them.`,
+    `**What it does:** allows AI crawlers to read your site. Many sites block them by accident.`,
     ``,
     `\`\`\``,
     robotsPatch,

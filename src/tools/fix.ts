@@ -48,7 +48,7 @@ export async function fixHandler(
     return {
       content: [{
         type: "text",
-        text: `🔄 Score not yet available for **${domain}** — scan in progress. Try again in 30–60 seconds.`,
+        text: `Score not yet available for **${domain}** — scan in progress. Try again in 30–60 seconds.`,
       }],
     };
   }
@@ -72,7 +72,7 @@ function formatFixes(domain: string, d: ScoreResponse): string {
   // robots.txt fix
   if ((breakdown["robots_txt"] ?? 20) < 20) {
     lines.push(
-      `#### 1. ❌ robots.txt — AI crawlers blocked`,
+      `#### 1. robots.txt — AI crawlers blocked`,
       ``,
       `Add to your \`/robots.txt\`:`,
       `\`\`\``,
@@ -102,7 +102,7 @@ function formatFixes(domain: string, d: ScoreResponse): string {
   // FAQ schema fix
   if ((breakdown["faq_schema"] ?? 0) < 15) {
     lines.push(
-      `#### 2. ❌ FAQ Schema — missing or thin (+41% citation rate)`,
+      `#### 2. FAQ Schema — missing or thin`,
       ``,
       `Add to your homepage \`<head>\`:`,
       `\`\`\`html`,
@@ -133,7 +133,7 @@ function formatFixes(domain: string, d: ScoreResponse): string {
       `}`,
       `</script>`,
       `\`\`\``,
-      `> **Tip:** Add 5-7 Q&A pairs for maximum citation rate. Use \`geo-optimizer fix ${domain}\` to auto-generate with AI.`,
+      `> **Tip:** Add 5-7 Q&A pairs for best coverage. Use \`geo-optimizer fix ${domain}\` to auto-generate with AI.`,
       ``,
     );
   }
@@ -141,7 +141,7 @@ function formatFixes(domain: string, d: ScoreResponse): string {
   // Schema.org fix
   if ((breakdown["schema_org"] ?? 0) < 15) {
     lines.push(
-      `#### 3. ⚠️ Schema.org — missing or sparse`,
+      `#### 3. Schema.org — missing or sparse`,
       ``,
       `Add Organization schema to \`<head>\`:`,
       `\`\`\`html`,
@@ -195,7 +195,7 @@ function formatFixes(domain: string, d: ScoreResponse): string {
     `geo-optimizer fix ${domain} --output ./fixes`,
     `\`\`\``,
     ``,
-    `🔗 [Full audit → causabi.com/score/${domain}](https://causabi.com/score/${domain})`,
+    `[Full audit -> causabi.com/score/${domain}](https://causabi.com/score/${domain})`,
   );
 
   // If no issues, everything is good
@@ -203,7 +203,7 @@ function formatFixes(domain: string, d: ScoreResponse): string {
     return [
       `## GEO Fixes: ${domain}`,
       ``,
-      `✅ **Score: ${d.score}/100 Grade ${d.grade}** — site is well-optimized for AI search!`,
+      `**Score: ${d.score}/100 Grade ${d.grade}** — site is well-optimized for AI search!`,
       ``,
       `No critical fixes needed. Monitor your AI visibility at:`,
       `[causabi.com/score/${domain}](https://causabi.com/score/${domain})`,
@@ -226,7 +226,7 @@ function normalizeDomain(raw: string): string {
 }
 
 function errorResult(msg: string): CallToolResult {
-  return { content: [{ type: "text", text: `❌ ${msg}` }], isError: true };
+  return { content: [{ type: "text", text: `${msg}` }], isError: true };
 }
 
 interface ScoreResponse {

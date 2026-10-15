@@ -180,7 +180,7 @@ function formatScoreOnlyReport(domain: string, d: ScoreResponse): string {
     `- If you have a causabi.com/report/<slug> link, call get_site_report again with report_slug set.`,
     `- Otherwise, sign in at causabi.com to generate a Visibility Report for ${domain} (requires an active site + business profile).`,
     ``,
-    `[Full score → causabi.com/score/${domain}](https://causabi.com/score/${domain})`
+    `[Full score -> causabi.com/score/${domain}](https://causabi.com/score/${domain})`
   );
 
   return lines.join("\n");
